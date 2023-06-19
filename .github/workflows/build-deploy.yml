@@ -22,7 +22,7 @@ jobs:
 
     services:
       postgres: 
-        image: posgtres
+        image: postgres
         env:
           POSTGRES_PASSWORD: ${{secrets.DATABASE_NAME}}
           POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test
