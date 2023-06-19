@@ -19,6 +19,21 @@ jobs:
       SECRET_KEY: ${{secrets.SECRET_KEY}}
       ALGORITHM: ${{secrets.ALGORITHM}}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
+
+    services:
+      postgres: 
+        image: posgtres
+        env:
+          POSTGRES_PASSWORD: ${{secrets.DATABASE_NAME}}
+          POSTGRES_DB: ${{secrets.DATABASE_NAME}}_test
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     runs-on: ubuntu-latest
     steps:
       - name: pulling code from git repo
